@@ -1,0 +1,5 @@
+# PreEntrega1MUSSI-
+Mi proyecto JS trata sobre el juego del TRUCO argentino.
+En esta primer Pre-entrega, se desarrolla un simulador interactivo sobre la jugada "ENVIDO": Las claves para acceder son: usuario: "profe" (puede escribirse con mayusculas o minúsculas) y la constraseña es: 123. El usuario luego de loguearse deberá seleccionar 2 cartas para su jugada. (conforme avance en mi aprendizaje la idea es que luego.. el usuario reciba dos cartas al azar y arme su jugada) Las cartas válidas para este juego son del 1 al 12 y habitualmente el 8 y 9 se quitan... por lo que esta es la primer validación que apliqué. Luego dichas cartas poseen un valor (del 1 al 7 valen su propio número y las denominadas "negras" del 10 al 12 tinen valor 0 para esta ronda), ambas cartas van a sumar su valor +20 puntos si son del mismo palo.. quedando así conformado el valor total del Envido. Una vez que el usuario tiene el valor de sus cartas.. podrá decidir cómo jugar.
+
+Espero les guste mi idea!! Aguardo comentarios! Muchas gracias.
