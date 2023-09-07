@@ -1,0 +1,136 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: green;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+    "header header" 
+    "tablero contador";
+}
+.header{
+    grid-area: header;
+}
+.tablero{
+    grid-area: tablero;
+}
+.contador{
+    grid-area: contador;
+}
+
+.titulos{
+    color: aliceblue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+img{
+    width: 200px;
+    height: 300px;
+    border-color: black;
+    border-radius: 5%;
+}
+
+#boton_empezar{
+background-color: rgb(132, 247, 109);
+color: green;
+font-style: initial;
+border-style:hidden;
+height: 30px;
+font-weight: bold;
+border-radius: 5%;
+padding: 5px;
+margin: 10px;
+}
+
+#cartas_jug1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#cartas_jug2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tarjeta_cartas_Jug1{
+    background-color: whitesmoke;
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 20px;
+}
+.tarjeta_cartas_Jug2{
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 20px;
+}
+#mesa{
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box_preguntas{
+    height: 100px;
+    width: 300px;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    border-radius: 15px;
+}
+.titulo_box_preguntas{
+    margin-top: 5px;
+}
+.botonesBox{
+    width: 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+#boton_box_si{
+    width: 30px;
+    height: 35px;
+    font-size: large;
+}
+#boton_box_no{
+    width: 30px;
+    height: 35px;
+    font-size: large;
+}
+.box_cantos{
+    height: 100px;
+    width: 300px;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    border-radius: 15px;
+}
+#botones_quiero{
+margin-top: 10px;
+}
+#boton_box_quiero{
+    width: 80px;
+    height: 35px;
+    font-size: large;
+}
+#boton_box_noquiero{
+    width: 100px;
+    height: 35px;
+    font-size: large;
+}
