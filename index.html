@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Truco Argentino</title>
     <link rel="stylesheet" href="./style.css">
-    <script defer src="./js/main.js"></script>
+    <script src="./js/main.js" type= "module" defer></script>
 </head>
 
 <body>
@@ -28,9 +28,25 @@
     <div class="tablero">
         <div id="cartas_jug2"></div>
         <div id="mesa"></div>
-        <div id="cartas_jug1"></div> 
+        <div id="cartas_jug1"></div>
     </div>
     <div class="contador">
+        <h2 class="titulos">
+            Puntos
+        </h2>
+        <div id="jugadoresContainer">
+            <div id="jugador1container" class="jugadorContainer">
+                <h4 class="titulos"></h4>
+                <div class="cuenta"></div>
+            </div>
+            <div id="jugador2container" class="jugadorContainer">
+                <h4 class="titulos"></h4>
+                <div class="cuenta"></div>
+            </div>
+        </div>
+        <div>
+            <button id="botonReinicio">Reiniciar</button>
+        </div>
     </div>
 
 

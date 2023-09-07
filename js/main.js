@@ -69,7 +69,7 @@ function mostrarCartas(cartasJugada) {
         tarjetaCarta.className = "tarjeta_cartas_Jug1"
         tarjetaCarta.innerHTML = `
             <h3>${carta.numero} de ${carta.palo}</h3>
-            <img src="./img/cartas/${carta.img}.jpg">`
+            <img class = "img_carta" src="./img/cartas/${carta.img}.jpg">`
         contenedorCartasJug1.appendChild(tarjetaCarta)
     })
     let contenedorCartasJug2 = document.getElementById("cartas_jug2")
@@ -77,12 +77,51 @@ function mostrarCartas(cartasJugada) {
         let tarjetaCarta = document.createElement("div")
         tarjetaCarta.className = "tarjeta_cartas_Jug2"
         tarjetaCarta.innerHTML = `
-            <img src="./img/cartas/dorso de las cartas.png">`
+            <img class = "img_carta" src="./img/cartas/dorso de las cartas.png">`
         contenedorCartasJug2.appendChild(tarjetaCarta)
     })
 }
 
 console.log(cartasJugador2)
+
+
+
+
+//ANOTADOR DE PUNTOS: 
+//para el contador destinamos una clase objeto, importada desde el archivo contador.js
+// para poder asignar metodos y variables y usar los mismos para cada jugador (p1 y p2) 
+//la funcion actualizar cuenta me va a oder agrupar los puntos de a 5, y mostrar fósforos por cada punto.
+
+import {Contador} from "./contador.js"
+const p1 = new Contador("Nosotros", document.getElementById("jugador1container"));
+const p2 = new Contador("Ellos", document.getElementById("jugador2container"));
+
+
+
+let reiniciar = document.getElementById("botonReinicio")                      //config boton reinicio
+reiniciar.onclick = () => { p1.reiniciarPuntos(), p2.reiniciarPuntos() }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //FASE ENVIDO: 
 
@@ -138,7 +177,10 @@ console.log(`valor envido jugador 2: ${valorEnvidoJug2}`)
 //INTERACCION CON USUARIO:
 
 //funcion para cuando canta envido la PC (juagdor2)  
-//3ra entrega: quito reemplazo prompts por cuadros con botones par que usurio interactúe
+//3ra entrega: quito algunos alerts y reemplazo prompts por cuadros con botones para que usuario interactúe
+//aplico eventos a esos botones
+//suma puntos en el contador dependiendo las elecciones y valores
+
 const cantarEnvido = () => {
     let eliminaBoxPreguntas = document.getElementsByClassName("box_preguntas");
     eliminaBoxPreguntas[0].remove();
@@ -161,21 +203,22 @@ const cantarEnvido = () => {
         if (valorEnvidoJug1 >= valorEnvidoJug2) {
             alert("Tus Cartas son buenas!! GANASTE 2 puntos.");
             eliminaBoxCantos[0].remove();
+            p1.agregarPuntos(2);
         } else {
             alert(`${valorEnvidoJug2} son mejores!! 2 puntos para mi!`);
             eliminaBoxCantos[0].remove();
+            p2.agregarPuntos(2);
         }
     }
     let noCantoEnvidoJug2 = document.getElementById("boton_box_noquiero")
     noCantoEnvidoJug2.onclick = () => {
         alert("1 punto para mí!");
         eliminaBoxCantos[0].remove();
+        p2.agregarPuntos();
     }
 }
 
 
-//3ª entrega: saco los alerts y prompts para interactuar con usuario. Creo una caja para seleccionar 
-//mediante botones las opciones deseadas y aplico eventos a dichos botones
 
 function juegoEnvido() {
     let boxjugada = document.getElementById("mesa")
@@ -193,6 +236,7 @@ function juegoEnvido() {
     boxpreguntas.appendChild(botonesBox)
 
     let eliminaBoxPreguntas = document.getElementsByClassName("box_preguntas");
+
     let canta_envido_jug1 = document.getElementById("boton_box_si")
     canta_envido_jug1.onclick = () => {
         if (valorEnvidoJug2 >= 23 && valorEnvidoJug2 < 30) {
@@ -200,16 +244,19 @@ function juegoEnvido() {
             if (valorEnvidoJug1 >= valorEnvidoJug2) {
                 alert("Tus Cartas son buenas!! GANASTE 2 puntos.");
                 eliminaBoxPreguntas[0].remove();
+                p1.agregarPuntos(2);
             } else {
                 alert(`${valorEnvidoJug2} son mejores!! 2 puntos para mi!`);
                 eliminaBoxPreguntas[0].remove();
+                p2.agregarPuntos(2);
             }
         } else if (valorEnvidoJug2 >= 30) {
             cantarEnvido()
         }
         else {
-            alert("No Quiero.");
+            alert("No Quiero. 1 punto par vos!!");
             eliminaBoxPreguntas[0].remove();
+            p1.agregarPuntos();
         }
     }
 
@@ -221,10 +268,30 @@ function juegoEnvido() {
     }
 }
 
-//ANOTADOR DE PUNTOS: 
 
 
-//let anotador =  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -15,3 +15,9 @@ y ahora si comienza la interacción con el usuario. Para este caso decidí no ha
 2. si el usuario Jug1 decide NO CANTAR NADA y la maquina Jug2 tiene 20 puntos o más.. la maquina cantará ENVIDO. El usuario podrá optar por querer o no... y ganará el que más puntos tenga.. en caso de empates en cualqueira de los casos.. gana el Jug 1 ya que es mano.    
 
 Para la fase del TRUCO desarrolle un ranking que asigna valores a las cartas, siendo sus valores de menor a mayor: los 4; los 5; los 6 ; los 7 de basto y copa; los 10 ; los 11; los 12; los 1 (de oro y copa); los 2 ; los 3; 7 de oro; 7 de espada; 1 de basto; y 1 de espada.  
+
+
+# PreEntrega3MUSSI-
+Se agrega estructura estática en html y para la parte dinámica se accede y crean elementos desde el archivo JS. 
+Se suman imágenes para cada carta.. cuadros para interacción con el usuario, con botones y eventos (reemplazando los prompts y alerts).
+Además se agrega un Contador para ir llevando los puntos.

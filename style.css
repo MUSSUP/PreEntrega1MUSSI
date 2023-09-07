@@ -4,60 +4,65 @@
     box-sizing: border-box;
 }
 
-body{
+body {
     background-color: green;
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: auto auto;
-    grid-template-areas: 
-    "header header" 
-    "tablero contador";
+    grid-template-areas:
+        "header header"
+        "tablero contador";
 }
-.header{
+
+.header {
     grid-area: header;
 }
-.tablero{
+
+.tablero {
     grid-area: tablero;
 }
-.contador{
+
+.contador {
     grid-area: contador;
 }
 
-.titulos{
+.titulos {
     color: aliceblue;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-img{
+.img_carta {
     width: 200px;
     height: 300px;
     border-color: black;
     border-radius: 5%;
 }
 
-#boton_empezar{
-background-color: rgb(132, 247, 109);
-color: green;
-font-style: initial;
-border-style:hidden;
-height: 30px;
-font-weight: bold;
-border-radius: 5%;
-padding: 5px;
-margin: 10px;
+#boton_empezar {
+    background-color: rgb(132, 247, 109);
+    color: green;
+    font-style: initial;
+    border-style: hidden;
+    height: 30px;
+    font-weight: bold;
+    border-radius: 5%;
+    padding: 5px;
+    margin: 10px;
 }
 
-#cartas_jug1{
+#cartas_jug1 {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-#cartas_jug2{
+
+#cartas_jug2 {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.tarjeta_cartas_Jug1{
+
+.tarjeta_cartas_Jug1 {
     background-color: whitesmoke;
     border-radius: 5%;
     display: flex;
@@ -65,21 +70,23 @@ margin: 10px;
     align-items: center;
     margin: 10px 20px;
 }
-.tarjeta_cartas_Jug2{
+
+.tarjeta_cartas_Jug2 {
     border-radius: 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 10px 20px;
 }
-#mesa{
+
+#mesa {
     height: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.box_preguntas{
+.box_preguntas {
     height: 100px;
     width: 300px;
     background-color: aliceblue;
@@ -89,10 +96,12 @@ margin: 10px;
     margin-top: 100px;
     border-radius: 15px;
 }
-.titulo_box_preguntas{
+
+.titulo_box_preguntas {
     margin-top: 5px;
 }
-.botonesBox{
+
+.botonesBox {
     width: 80px;
     display: flex;
     flex-direction: row;
@@ -100,17 +109,20 @@ margin: 10px;
     justify-content: space-between;
     margin-top: 10px;
 }
-#boton_box_si{
+
+#boton_box_si {
     width: 30px;
     height: 35px;
     font-size: large;
 }
-#boton_box_no{
+
+#boton_box_no {
     width: 30px;
     height: 35px;
     font-size: large;
 }
-.box_cantos{
+
+.box_cantos {
     height: 100px;
     width: 300px;
     background-color: aliceblue;
@@ -121,16 +133,61 @@ margin: 10px;
     margin-bottom: 50px;
     border-radius: 15px;
 }
-#botones_quiero{
-margin-top: 10px;
+
+#botones_quiero {
+    margin-top: 10px;
 }
-#boton_box_quiero{
+
+#boton_box_quiero {
     width: 80px;
     height: 35px;
     font-size: large;
 }
-#boton_box_noquiero{
+
+#boton_box_noquiero {
     width: 100px;
     height: 35px;
     font-size: large;
+}
+
+.contador {
+    background-color: rgb(0, 95, 0);
+    border-radius: 10px;
+    max-width: 300px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: fit-content;
+}
+
+#jugadoresContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    min-height: 300px;
+}
+.jugadorContainer{
+    background-color: rgb(56, 179, 56);
+    border-radius: 5px;
+    min-width: 100px;
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: flex-start;
+}
+#botonReinicio{
+    height: 30px;
+    width: 80px;
+}
+
+.img_fosforo{
+height: 50px;
+width: 50px;
+
+}
+
+.cuenta{
+    margin-top: 5px;
 }
