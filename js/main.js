@@ -5,7 +5,7 @@
 //que en el Truco Argentino no se usan para jugar  (los 8 y 9 de cada palo). 
 //a todo eso lo coloco dentro de una función, ya que pretendo usarla cada vez que comience una jugada 
 
-const mazo = []
+let mazo = []
 let mazoBarajado = []
 const palos = ["espada", "copa", "basto", "oro"]
 
@@ -54,8 +54,16 @@ crearMazo()
 barajarMazo()
 repartir()
 
-let empezar = document.getElementById("boton_empezar")    //3ºentrega: capuro el elemento boton 
-empezar.onclick = () => { mostrarCartas(), juegoEnvido() }                      //para comenzar y que se repartan las cartas
+let empezar = document.getElementById("boton_empezar")    //3ºentrega: capuro el elemento boton para comenzar y que se repartan las cartas
+empezar.onclick = () => {
+    mostrarCartas()
+    juegoEnvido()
+
+    mazo = []
+    mazoBarajado = []
+    cartasJugador1 = []
+    cartasJugador2 = []
+}
 
 const muestraCartasJug1 = cartasJugador1.map(cartasJugador1 => `${cartasJugador1.numero} de ${cartasJugador1.palo}`)
 
@@ -71,6 +79,13 @@ function mostrarCartas(cartasJugada) {
             <h3>${carta.numero} de ${carta.palo}</h3>
             <img class = "img_carta" src="./img/cartas/${carta.img}.jpg">`
         contenedorCartasJug1.appendChild(tarjetaCarta)
+        tarjetaCarta.dataset.numero = carta.numero                 //agrego data en esta carta "elemento html"
+        tarjetaCarta.dataset.palo = carta.palo                     //para que cuando sea cliqueada en el truco
+        tarjetaCarta.dataset.img = carta.img                       //pueda determinar su valor
+        tarjetaCarta.onclick = () => {
+            verificarValoreCartaTruco(tarjetaCarta)
+        }
+
     })
     let contenedorCartasJug2 = document.getElementById("cartas_jug2")
     cartasJugador2.forEach(carta => {
@@ -84,7 +99,14 @@ function mostrarCartas(cartasJugada) {
 
 console.log(cartasJugador2)
 
+//GUARDADO DE CARTAS EN LOCALSTORAGE: 
+let cartasJugador1JSON = JSON.stringify(cartasJugador1)
+localStorage.setItem("cartasJugador1", cartasJugador1JSON)
 
+let cartasJugador2JSON = JSON.stringify(cartasJugador2)
+localStorage.setItem("cartasJugador2", cartasJugador2JSON)
+
+//localStorage.removeItem("cartasJ1")
 
 
 //ANOTADOR DE PUNTOS: 
@@ -92,7 +114,7 @@ console.log(cartasJugador2)
 // para poder asignar metodos y variables y usar los mismos para cada jugador (p1 y p2) 
 //la funcion actualizar cuenta me va a oder agrupar los puntos de a 5, y mostrar fósforos por cada punto.
 
-import {Contador} from "./contador.js"
+import { Contador } from "./contador.js"
 const p1 = new Contador("Nosotros", document.getElementById("jugador1container"));
 const p2 = new Contador("Ellos", document.getElementById("jugador2container"));
 
@@ -100,26 +122,6 @@ const p2 = new Contador("Ellos", document.getElementById("jugador2container"));
 
 let reiniciar = document.getElementById("botonReinicio")                      //config boton reinicio
 reiniciar.onclick = () => { p1.reiniciarPuntos(), p2.reiniciarPuntos() }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -204,10 +206,12 @@ const cantarEnvido = () => {
             alert("Tus Cartas son buenas!! GANASTE 2 puntos.");
             eliminaBoxCantos[0].remove();
             p1.agregarPuntos(2);
+            juegaTruco();
         } else {
             alert(`${valorEnvidoJug2} son mejores!! 2 puntos para mi!`);
             eliminaBoxCantos[0].remove();
             p2.agregarPuntos(2);
+            juegaTruco();
         }
     }
     let noCantoEnvidoJug2 = document.getElementById("boton_box_noquiero")
@@ -215,6 +219,7 @@ const cantarEnvido = () => {
         alert("1 punto para mí!");
         eliminaBoxCantos[0].remove();
         p2.agregarPuntos();
+        juegaTruco()
     }
 }
 
@@ -245,10 +250,12 @@ function juegoEnvido() {
                 alert("Tus Cartas son buenas!! GANASTE 2 puntos.");
                 eliminaBoxPreguntas[0].remove();
                 p1.agregarPuntos(2);
+                juegaTruco();
             } else {
                 alert(`${valorEnvidoJug2} son mejores!! 2 puntos para mi!`);
                 eliminaBoxPreguntas[0].remove();
                 p2.agregarPuntos(2);
+                juegaTruco();
             }
         } else if (valorEnvidoJug2 >= 30) {
             cantarEnvido()
@@ -257,6 +264,7 @@ function juegoEnvido() {
             alert("No Quiero. 1 punto par vos!!");
             eliminaBoxPreguntas[0].remove();
             p1.agregarPuntos();
+            juegaTruco()
         }
     }
 
@@ -264,92 +272,29 @@ function juegoEnvido() {
     canta_envido_jug2.onclick = () => {
         if (valorEnvidoJug2 >= 20) {
             cantarEnvido()
-        } else { eliminaBoxPreguntas[0].remove(); }
+        } else { eliminaBoxPreguntas[0].remove(); juegaTruco() }
     }
+
+
 }
 
+//GUARDADO DE PUNTOS 
+document.querySelectorAll("button").forEach(button => {
+    button.addEventListener("click", () => {
+        const PartidaAGuardar = {
+            [p1.nombre]: p1.numero,
+            [p2.nombre]: p2.numero,
+        }
+        localStorage.setItem("truco", JSON.stringify(PartidaAGuardar));
+        console.log("guardado")
+    })
+})
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
 //FASE TRUCO: 
 
 //se hace un ranking para asignar valor a las cartas de cada jugador: 
 
-
-let rankingCarta1 = []
-const verificarValoresCartas1 = () => {
-    for (let i = 0; i < cartasJugador1.length; i++) {
-        switch (cartasJugador1[i].numero) {
-            case 4: rankingCarta1.push(1);
-                break;
-            case 5: rankingCarta1.push(2);
-                break;
-            case 6: rankingCarta1.push(3);
-                break;
-            case 7: if (cartasJugador1[i].palo === "copa" || cartasJugador1[i].palo === "basto") {
-                rankingCarta2.push(3)
-            };
-                break;
-            case 10: rankingCarta1.push(4);
-                break;
-            case 11: rankingCarta1.push(5);
-                break;
-            case 12: rankingCarta1.push(6);
-                break;
-            case 1: rankingCarta1.push(7);
-                break;
-            case 2: rankingCarta1.push(8);
-                break;
-            case 3: rankingCarta1.push(9);
-                break;
-            case 7: if (cartasJugador1[i].palo === "oro") {
-                rankingCarta2.push(10)
-            };
-                break;
-            case 7: if (cartasJugador1[i].palo === "espada") {
-                rankingCarta2.push(11)
-            };
-                break;
-            case 1: if (cartasJugador1[i].palo === "basto") {
-                rankingCarta2.push(12)
-            };
-                break;
-            case 1: if (cartasJugador1[i].palo === "espada") {
-                rankingCarta2.push(13)
-            };
-                break;
-        }
-    }
-    console.log(rankingCarta1)
-}
-verificarValoresCartas1()
-//arreglar el ranking!! y ver de filtrar los 1 falsos!!
 let rankingCarta2 = []
 const verificarValoresCartas2 = () => {
     for (let i = 0; i < cartasJugador2.length; i++) {
@@ -360,37 +305,32 @@ const verificarValoresCartas2 = () => {
                 break;
             case 6: rankingCarta2.push(3);
                 break;
-            case 7: if (cartasJugador2[i].palo === "copa" || cartasJugador2[i].palo === "basto") {
-                rankingCarta2.push(3)
-            };
-                break;
             case 10: rankingCarta2.push(4);
                 break;
             case 11: rankingCarta2.push(5);
                 break;
             case 12: rankingCarta2.push(6);
                 break;
-            case 1: rankingCarta2.push(7);
-                break;
             case 2: rankingCarta2.push(8);
                 break;
             case 3: rankingCarta2.push(9);
                 break;
-            case 7: if (cartasJugador2[i].palo === "oro") {
-                rankingCarta2.push(10)
-            };
-                break;
-            case 7: if (cartasJugador2[i].palo === "espada") {
-                rankingCarta2.push(11)
-            };
+            case 7:
+                if (cartasJugador2[i].palo === "oro") {
+                    rankingCarta2.push(10)
+                }
+                else if (cartasJugador2[i].palo === "espada") {
+                    rankingCarta2.push(11)
+                }
+                else { rankingCarta2.push(3) }
                 break;
             case 1: if (cartasJugador2[i].palo === "basto") {
                 rankingCarta2.push(12)
-            };
-                break;
-            case 1: if (cartasJugador2[i].palo === "espada") {
+            }
+            else if (cartasJugador2[i].palo === "espada") {
                 rankingCarta2.push(13)
-            };
+            }
+            else { rankingCarta2.push(7) }
                 break;
         }
     }
@@ -401,33 +341,82 @@ verificarValoresCartas2()
 
 //juego: 
 
-let juegaTruco = prompt(`Tu turno! te recuerdo tus cartas:\n
-${muestraCartasJug1}\n
-Que deseas hacer?\n
-1.Truco
-2.Tirar una carta`).trim()
-switch (juegaTruco) {
-    case "1":
-        if (rankingCarta2.some((elem) => elem > 6)) {
-            prompt(`QUIERO!\n`)
-            //da vuelta tu primer carta:\n
-            //1. ${muestraCartasJug1[0]}\n
-            //2. ${muestraCartasJug1[1]}\n
-            //3. ${muestraCartasJug1[2]}\n`)
-            //alert (Math.max(...rankingCarta2))
-        }
-        else {
-            alert(`no quiero!`)
-        }
-        break;
 
-    case "2":
-        alert("ya va")
-        break;
+function juegaTruco() {
+    let boxRondas = document.getElementById("mesa")
+    let boxpreguntas2 = document.createElement("div")
+    boxpreguntas2.className = "box_preguntas"
+    boxpreguntas2.innerHTML = `
+    <h3 class = "titulo_box_preguntas">Tirá tu primer carta</h3>
+    <button id= "botones_quiero">Truco</button>
+    `
+    boxRondas.appendChild(boxpreguntas2)
 }
 
 
-*/
+function verificarValoreCartaTruco(carta) {
+    carta.style.border = "3px solid red"
+    //console.log(carta)
+    switch (carta.dataset.numero) {
+        case "4": console.log(1);
+            break;
+        case "5": console.log(2);
+            break;
+        case "6": console.log(3);
+            break;
+        case "10": console.log(4);
+            break;
+        case "11": console.log(5);
+            break;
+        case "12": console.log(6);
+            break;
+        case "2": console.log(8);
+            break;
+        case "3": console.log(9);
+            break;
+        case "7":
+            if (carta.dataset.palo === "oro") {
+                console.log(10)
+            }
+            else if (carta.dataset.palo === "espada") {
+                console.log(11)
+            }
+            else { console.log(3) }
+            break;
+        case "1": if (carta.dataset.palo === "basto") {
+            console.log(12)
+        }
+        else if (carta.dataset.palo === "espada") {
+            console.log(13)
+        }
+        else { console.log(7) }
+            break;
+    }
+
+
+
+    let cartasEnMesa = document.getElementById("mesa")
+    let cartasEnMesaP1 = document.createElement("div")
+    cartasEnMesaP1.className = "cartasEnMesaP1"
+    cartasEnMesa.appendChild(cartasEnMesaP1)
+
+    let cartaJugada1P1 = document.createElement("div")
+    cartaJugada1P1.className = "carta_jugada1"
+    cartaJugada1P1.innerHTML = `
+    <h3>${carta.dataset.numero} de ${carta.dataset.palo}</h3>
+    <img class = "img_carta" src="./img/cartas/${carta.dataset.img}.jpg">`
+    cartasEnMesaP1.appendChild(cartaJugada1P1)
+
+
+    // let eliminaCartaActual = document.getElementsByClassName("tarjeta_cartas_Jug1");
+    //eliminaCartaActual[0].remove();*/
+
+
+}
+
+
+
+
 
 
 
